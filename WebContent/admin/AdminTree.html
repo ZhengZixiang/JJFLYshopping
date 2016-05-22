@@ -1,0 +1,58 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>AdminTreePage</title>
+		<link rel="stylesheet" href="script/toc.css" type="text/css">
+		<script type="text/javascript" src="script/AdminTree.js"></script>
+		<style type='text/css'>
+		.level1 {margin-left:30;}
+		.level2 {display:none;margin-left:38;}
+		</style>
+	</head>
+	<body onload="init()" topmargin="0" leftmargin="0" rightmargin="0">
+		<div class="level1" id='head2Parent'>
+			<a class=OUTDENT href="" onclick='return expandIt("head2");'><IMG border=0 name=imEx  src="images/arrowUp.gif" id=ttt> 用户管理</a>
+		</div>
+		
+		<div class="level2" id='head2Child'>
+			<ul>
+				<li><a href="UserList.jsp" id=ttt target="main">用户列表</a></li>
+			</ul>
+		</div>
+		
+		<div class="level1" id='head3Parent'>
+			<a class=OUTDENT href="" onclick='return expandIt("head3");' id=ttt><IMG border=0 height=13 name=imEx  src="images/arrowUp.gif" width=17> 类别管理</a>
+		</div>
+		
+		<div class="level2" id='head3Child'>
+			<ul>
+				<li><a href="CategoryTree.jsp" id=ttt target="main">类别树状表</a></li>
+				<li><a href="CategoryList.jsp" id=ttt target="main">类别列表</a></li>
+				<li><a href="CategoryAdd.jsp" id=ttt target="main">类别添加</a></li>
+			</ul>
+		</div>
+		
+		<div class="level1" id='head4Parent'>
+			<a class=OUTDENT href="" onclick='return expandIt("head4");' id=ttt><IMG border=0 height=13 name=imEx  src="images/arrowUp.gif" width=17> 产品管理</a>
+		</div>
+		
+		<div class="level2" id='head4Child'>
+			<ul>
+				<li><a href="ProductList.jsp" id=ttt target=main>产品列表</a></li>
+				<li><a href="ProductAdd.jsp" id=ttt target=main>产品添加</a></li>
+				<li><a href="ProductSearch.jsp" id=ttt target=main>产品搜索</a></li>
+			</ul>
+		</div>
+		
+		<div class="level1" id='head9Parent'>
+			<a class=OUTDENT href="" onclick='return expandIt("head9");' id=ttt><IMG border=0 height=13 name=imEx  src="images/arrowUp.gif" width=17> 订单管理</a>
+		</div>
+		
+		<div class="level2" id='head9Child'>
+			<ul>
+				<li><a href="live.jsp" id=ttt target=main>订单列表</a></li>
+			</ul>
+		</div>
+	</body>
+</html>
