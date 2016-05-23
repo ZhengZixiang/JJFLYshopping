@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>产品搜索ProductSearch</title>
-
+<jsp:forward page="ProductSearch2.jsp"></jsp:forward>
 <script type="text/javascript">
 <!--
 function checkdata() {
@@ -74,7 +74,11 @@ if(action != null) {
 	if(action.trim().equals("simple")) {
 		categoryId = Integer.parseInt(request.getParameter("categoryid"));
 		keyword = request.getParameter("keyword");
-		//TODO
+		pageCnt = ProductMgr.getInstance().searchProducts(products, categoryArr, keyword, lowNormalPrice, highNormalPrice, lowMemberPrice, highMemberPrice, null, null, pageNo, PAGE_SIZE);
+		if(pageNo > pageCnt) {
+			pageNo = pageCnt;
+			ProductMgr.getInstance().searchProducts(products, categoryArr, keyword, lowNormalPrice, highNormalPrice, lowMemberPrice, highMemberPrice, null, null, pageNo, PAGE_SIZE);
+		}
 	} else if (action.trim().equals("complex")){
 		categoryId = Integer.parseInt(request.getParameter("categoryid"));
 		keyword = request.getParameter("keyword");
@@ -136,7 +140,7 @@ if(action != null) {
 	}
 %>
 
-<!-- ************************************************************************************************************************************************ -->
+		<!-- display the result table about search -->
 		<center>搜索结果</center>
 		<table border="1" align="center">
 			<tr>
@@ -168,6 +172,36 @@ if(action != null) {
 		%>
 		</table>
 		
+		
+		<!-- deal with page selection from simple search -->
+		<% 	if(action != null && action.equals("simple")) {%>
+		<div align="center">
+			<font>共<%= pageCnt %>页  第<%= pageNo %>页</font>
+			<% if(pageNo != 1) { %>
+			<a href="ProductSearch.jsp?action=<%= action %>&keyword=<%= keyword %>&categoryid=<%= categoryId %>&pageno=<%= pageNo-1 %>">上一页</a>
+			<% } %>
+			<% if(pageNo != pageCnt) {%>
+			<a href="ProductSearch.jsp?action=<%= action %>&keyword=<%= keyword %>&categoryid=<%= categoryId %>&pageno=<%= pageNo+1 %>">下一页</a>
+			<% } %>
+			<a href="ProductSearch.jsp?action=<%= action %>&keyword=<%= keyword %>&categoryid=<%= categoryId %>&pageno=<%= pageCnt %>">尾页</a>
+		</div>
+
+		<center>
+		<form name="pageselect" action="ProductSearch.jsp" method="get">
+			<input type="hidden" name="action" value="<%= action %>"/>
+			<input type="hidden" name="keyword" value="<%= keyword %>"/>
+			<input type="hidden" name="categoryid" value="<%= categoryId %>"/>
+			<select name="pageno" onchange="document.pageselect.submit()">
+			<% for(int i = 1; i <= pageCnt; i++) { %>
+					<option value="<%= i %>" <%= (i == pageNo) ? "selected" : "" %>>第<%= i %>页</option>
+			<% } %>
+			</select>
+		</form>
+		</center>
+		<% } %>
+		
+		
+		<!-- deal with page selection from complex search -->		
 		<% 	if(action != null && action.equals("complex")) {%>
 		<div align="center">
 			<font>共<%= pageCnt %>页  第<%= pageNo %>页</font>
@@ -179,7 +213,6 @@ if(action != null) {
 			<% } %>
 			<a href="ProductSearch.jsp?action=<%= action %>&keyword=<%= keyword %>&lownormalprice=<%= lowNormalPrice %>&highnormalprice=<%= highNormalPrice %>&lowmemberprice=<%= lowMemberPrice %>&highmemberprice=<%= highMemberPrice %>&startdate=<%= strStart %>&enddate=<%= strEnd %>&categoryid=<%= categoryId %>&pageno=<%= pageCnt %>">尾页</a>
 		</div>
-
 		<center>
 		<form name="pageselect" action="ProductSearch.jsp" method="get">
 			<input type="hidden" name="action" value="<%= action %>"/>
@@ -201,7 +234,7 @@ if(action != null) {
 		<% } %>
 
 		
-		
+		<!-- deal with page selection from multiple search -->
 		<% 	if(action != null && action.equals("multiple")) {%>
 		<div align="center">
 			<font>共<%= pageCnt %>页  第<%= pageNo %>页</font>
@@ -238,10 +271,8 @@ if(action != null) {
 }
 %>
 
-<!-- ******************************************************************************************************************************************** -->
 
-
-
+<!-- Initial search page -->
 <body>
 	<center>简单搜索</center>
 	<form name="simple" action="ProductSearch.jsp" method="get">

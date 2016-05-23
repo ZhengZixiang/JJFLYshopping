@@ -37,10 +37,10 @@ List<Category> categories = Category.getCategories();
 			<td><%= c.getPid() %></td>
 			<td><%= c.getGrade() %></td>
 			<td><a href="CategoryAdd.jsp?pid=<%= c.getId() %>">添加子类</a> 
-			 | <a href="CategoryDelete.jsp?id=<%= c.getId() %>">删除该类</a>
 			 | <a href="CategoryModify.jsp?id=<%= c.getId() %>">编辑该类</a>
 			<% if(c.isLeaf()) { %>
-			 | <a href="ProductAdd.jsp?categoryid=<%= c.getId() %>">添加产品</a></td>
+			 | <a href="ProductAdd.jsp?categoryid=<%= c.getId() %>">添加产品</a>
+			 | <a href="CategoryDelete.jsp?id=<%= c.getId() %>">删除子类</a></td>
 			<% } %>
 		</tr>
 	<%

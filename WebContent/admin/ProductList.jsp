@@ -46,7 +46,7 @@ if(pageNo > pageCnt) {
 			<td>NormalPrice</td>
 			<td>MemberPrice</td>
 			<td>Pdate</td>
-			<td>CategoryId</td>
+			<td>Category</td>
 			<td>Action</td>
 		</tr>
 	<%
