@@ -236,7 +236,6 @@ System.out.println(sql);
 		return true;
 	}
 	
-	
 	public Product loadById(int id) {
 		Connection conn = null;
 		ResultSet rs = null;
@@ -296,6 +295,35 @@ System.out.println(sql);
 			DB.closeConn(conn);
 		}
 		return true;
+	}
+
+	public List<Product> getLatestProducts(int count) {
+		Connection conn = null;
+		ResultSet rs = null;
+		List<Product> products = new ArrayList<Product>();
+		try {
+			conn = DB.getConn();
+			String sql = "select * from product order by pdate desc limit 0, " + count;
+			rs = DB.executeQuery(conn, sql);
+			while(rs.next()) {
+				Product p = new Product();
+				p.setId(rs.getInt("id"));
+				p.setName(rs.getString("name"));
+				p.setDescr(rs.getString("descr"));
+				p.setNormalPrice(rs.getDouble("normalprice"));
+				p.setMemberPrice(rs.getDouble("memberprice"));
+				p.setPdate(rs.getTimestamp("pdate"));
+				p.setCategoryId(rs.getInt("categoryid"));
+				products.add(p);
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return products;
+		} finally {
+			DB.closeConn(conn);
+			DB.closeRS(rs);
+		}
+		return products;
 	}
 	
 }

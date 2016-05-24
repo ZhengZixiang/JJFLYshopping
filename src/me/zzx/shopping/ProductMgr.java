@@ -90,4 +90,8 @@ public class ProductMgr {
 	public Product loadById(int id) {
 		return dao.loadById(id);
 	}
+	
+	public List<Product> getLatestProducts(int count) {
+		return dao.getLatestProducts(count);
+	}
 }
