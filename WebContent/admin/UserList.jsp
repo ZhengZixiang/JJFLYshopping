@@ -17,24 +17,27 @@ List<User> users = UserManager.getUsers();
 %>
 	<table border="2" align="center">
 		<tr>
-			<td>ID</td>
-			<td>Username</td>
-			<td>Phone</td>
-			<td>Addr</td>
-			<td>Rdate</td>
-			<td>Action</td>
+			<th colspan="6">用户列表</th>
+		</tr>
+		<tr align="center">
+			<td>用户ID</td>
+			<td>用户名</td>
+			<td>电话</td>
+			<td>地址</td>
+			<td>注册时间</td>
+			<td>操作</td>
 		</tr>
 	<%
 	for(Iterator<User> it = users.iterator(); it.hasNext(); ) {
 		User u = it.next();
 	%>
-		<tr>
+		<tr align="center">
 			<td><%= u.getId() %></td>
 			<td><%= u.getUsername() %></td>
 			<td><%= u.getPhone() %></td>
 			<td><%= u.getAddr() %></td>
 			<td><%= u.getRdate() %></td> 
-			<td><a href="DeleteUser.jsp?id=<%= u.getId() %>" target="detail">Delete</a></td>
+			<td><a href="DeleteUser.jsp?id=<%= u.getId() %>" target="detail">用户删除</a></td>
 		</tr>
 	<%
 	}

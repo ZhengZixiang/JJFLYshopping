@@ -37,8 +37,13 @@ if(cart == null) {
 		</tr>
 		
 		<%
-		for(Iterator<CartItem> it = cart.getItems().iterator(); it.hasNext();) {
-			CartItem ci = it.next();
+		List<CartItem>items = cart.getItems();
+		for(int i = 0; i < items.size(); i++) {
+			CartItem ci = items.get(i);
+			if(ci.getCount() <= 0) {
+				items.remove(i);
+				continue;
+			}
 			%>
 			<tr>
 				<td><%= ci.getProductId() %></td>
@@ -53,8 +58,10 @@ if(cart == null) {
 		%>
 
 	</table>
+	<center>共计：<%= cart.getTotalPrice() %>元</center>
+	
 	<br>
-	<center><input align="middle" type="submit" value="修改商品数量"/></center>
+	<center><input align="middle" type="submit" value="修改商品数量"/> <input type="button" value="提交订单" onclick="document.location.href='Confirm.jsp'"/></center>
 </form>
 </body>
 </html>

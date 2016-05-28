@@ -6,6 +6,7 @@
 <jsp:useBean id="cart" class="me.zzx.shopping.Cart" scope="session"></jsp:useBean>
 <%
 List<Product> latestProducts = ProductMgr.getInstance().getLatestProducts(8);
+User user = (User) session.getAttribute("user");
 %>
 
 
@@ -230,14 +231,25 @@ if(document.URL.indexOf('www.baidu.com') >= 0){
 <div class="site-topbar">
     <div class="container">
         <div class="topbar-nav">
-            <a href="http://www.mi.com/index.html" data-stat-id="d8d76cec44d9d69a" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-d8d76cec44d9d69a&#39;, &#39;//www.mi.com/index.html&#39;, &#39;pcpid&#39;]);">小米网</a><span class="sep">|</span>
-            <a href="http://static.mi.com/feedback/" target="_blank" data-stat-id="690537f5005b8ead" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-690537f5005b8ead&#39;, &#39;//static.mi.com/feedback/&#39;, &#39;pcpid&#39;]);">问题反馈</a><span class="sep">|</span>
-            <a href="Login.jsp" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-d8d76cec44d9d69a&#39;, &#39;//www.mi.com/index.html&#39;, &#39;pcpid&#39;]);">登录</a><span class="sep">|</span>
-            <a href="Register.jsp" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-d8d76cec44d9d69a&#39;, &#39;//www.mi.com/index.html&#39;, &#39;pcpid&#39;]);">注册</a>
+            <a href="index.jsp" data-stat-id="d8d76cec44d9d69a" >JJFLY商城首页</a><span class="sep">|</span>
+            <a href="Feedback.jsp" target="_blank" data-stat-id="690537f5005b8ead" >问题反馈</a><span class="sep">|</span>
+            <% 
+            if(user == null) {
+            %>
+            <a href="Login.jsp">登录</a><span class="sep">|</span>
+            <a href="Register.jsp">注册</a>
+            <%
+            } else {
+            %>
+            <a href="SelfService.jsp">欢迎回来，<%= user.getUsername() %>！</a><span class="sep">|</span>
+            <a href="LogOut.jsp">退出登录</a>
+            <%
+            }
+            %>
         </div>
         <div class="topbar-cart" id="J_miniCartTrigger">
-            <a class="cart-mini" id="J_miniCartBtn" href="Cart.jsp" data-stat-id="6df4db48a644b407" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-6df4db48a644b407&#39;, &#39;//static.mi.com/cart/&#39;, &#39;pcpid&#39;]);">
-            	<i class="iconfont"></i>购物车<span class="cart-mini-num J_cartNum">（<%= cart.getItems().size() %>）</span>
+            <a class="cart-mini" id="J_miniCartBtn" href="Cart.jsp" data-stat-id="6df4db48a644b407">
+            	<i class="iconfont"></i>购物车（<%= cart.getItems().size() %>）
             </a>
             <div class="cart-menu" id="J_miniCartMenu" style="display: none;">
             	<div class="loading">
@@ -245,16 +257,14 @@ if(document.URL.indexOf('www.baidu.com') >= 0){
             	</div>
             </div>
         </div>
-        <form>
-        <!-- 
-        <div class="topbar-info" id="J_userInfo">
-            <a class="link" href="http://order.mi.com/site/login?redirectUrl=http://www.mi.com/" data-needlogin="true" data-stat-id="bf3aa4c80c0ac789" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-bf3aa4c80c0ac789&#39;, &#39;//order.mi.com/site/login&#39;, &#39;pcpid&#39;]);">用户名</a><span class="sep"><input type="text" name="username"></input>|</span><a class="link" href="https://account.xiaomi.com/pass/register" data-stat-id="749b1369201c13fb" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-749b1369201c13fb&#39;, &#39;https://account.xiaomi.com/pass/register&#39;, &#39;pcpid&#39;]);">密码</a><input type="password" name="password"></input>
-            <input type="submit" value="登录"></input>
-        </div>
-         -->
-        </form>
     </div>
 </div>
+<script type="text/javascript">
+//function showCart() {
+//		document.getElementById("J_miniCartMenu").innerHTML="Cart.jsp";
+//}
+</script>
+
 <div class="site-header">
     <div class="container">
         <div class="header-logo">
@@ -725,7 +735,7 @@ if(document.URL.indexOf('www.baidu.com') >= 0){
 	            				<li class="brick-item brick-item-m" data-gid="2144800001">
 		            				<div class="figure figure-img">
 		            					<a href="ProductDetailShow.jsp?id=<%= p.getId() %>" data-stat-method="1_1" data-stat-index="0" data-stat-text="<%= p.getName() %>" target="_blank" data-stat-pid="stat_首页.搭配热门_0_1_1" data-stat-aid="<%= p.getName() %>" data-stat-id="小米移动电源5000mAh+stat_首页.搭配热门_0_1_1" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-小米移动电源5000mAh+stat_首页.搭配热门_0_1_1&#39;, &#39;//item.mi.com/1144800001.html&#39;, &#39;pcpid&#39;]);">
-		            						<img src="./images/index/T1pZbvBTET1RXrhCrK.jpg" width="150" height="150" alt="<%= p.getName() %>">
+		            						<img src="./images/product/<%= p.getId() %>.jpg" width="150" height="150" alt="<%= p.getName() %>">
 		            					</a>
 		            				</div>
 		            				<h3 class="title">

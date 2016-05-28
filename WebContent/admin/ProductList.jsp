@@ -11,7 +11,6 @@
 <title>产品列表ProductList</title>
 </head>
 <body>
-	<center>产品列表</center>
 <%!
 private static final int PAGE_SIZE = 3;
 %>
@@ -40,20 +39,23 @@ if(pageNo > pageCnt) {
 %>
 	<table border="1" align="center">
 		<tr>
-			<td>ID</td>
-			<td>Name</td>
-			<td>Descr</td>
-			<td>NormalPrice</td>
-			<td>MemberPrice</td>
-			<td>Pdate</td>
-			<td>Category</td>
-			<td>Action</td>
+			<th colspan="8">产品列表</th>
+		</tr>
+		<tr align="center">
+			<td>产品ID</td>
+			<td>产品名称</td>
+			<td>产品描述</td>
+			<td>市场价</td>
+			<td>会员价</td>
+			<td>上市时间</td>
+			<td>产品类别</td>
+			<td>操作</td>
 		</tr>
 	<%
 	for(Iterator<Product> it = products.iterator(); it.hasNext(); ) {
 		Product p = it.next();
 	%>
-		<tr>
+		<tr align="center">
 			<td><%= p.getId() %></td>
 			<td><%= p.getName() %></td>
 			<td><%= p.getDescr() %></td> 
@@ -61,7 +63,11 @@ if(pageNo > pageCnt) {
 			<td><%= p.getMemberPrice() %></td>
 			<td><%= p.getPdate() %></td> 
 			<td><%= p.getCategory().getName() %></td> 
-			<td><a href="ProductDelete.jsp?id=<%= p.getId() %>" target="detail">产品删除</a> | <a href="ProductModify.jsp?id=<%= p.getId() %>">产品修改</a></td>
+			<td>
+				<a href="ProductDelete.jsp?id=<%= p.getId() %>" target="detail">产品删除</a>
+				 | <a href="ProductModify.jsp?id=<%= p.getId() %>">产品修改</a>
+				 | <a href="ProductImageUpload.jsp?id=<%= p.getId() %>" target="detail">上传图片</a>	 
+			</td>
 		</tr>
 	<%
 	}

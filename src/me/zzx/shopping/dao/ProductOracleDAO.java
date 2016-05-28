@@ -3,6 +3,8 @@ package me.zzx.shopping.dao;
 import java.util.Date;
 import java.util.List;
 
+import org.jfree.data.general.Dataset;
+
 import me.zzx.shopping.Product;
 
 public class ProductOracleDAO implements ProductDAO {
@@ -64,6 +66,12 @@ public class ProductOracleDAO implements ProductDAO {
 	}
 	
 	public List<Product> getLatestProducts(int count) {
+		return null;
+	}
+
+	@Override
+	public List<Dataset> getDatasets() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

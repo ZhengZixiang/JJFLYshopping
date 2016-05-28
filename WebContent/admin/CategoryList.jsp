@@ -17,10 +17,13 @@ List<Category> categories = Category.getCategories();
 %>
 	<table border="2" align="center">
 		<tr>
-			<td>ID</td>
-			<td>Name</td>
-			<td>Pid</td>
-			<td>Grade</td>
+			<th colspan="5">类别列表</th>
+		</tr>
+		<tr align="center">
+			<td>类别ID</td>
+			<td>类别名称</td>
+			<td>父类别ID</td>
+			<td>类别等级</td>
 			<td colspan="3">Action</td>
 		</tr>
 	<%
@@ -32,10 +35,10 @@ List<Category> categories = Category.getCategories();
 		}
 	%>
 		<tr>
-			<td><%= c.getId() %></td>
+			<td align="center"><%= c.getId() %></td>
 			<td><%= preStr + c.getName() %></td>
-			<td><%= c.getPid() %></td>
-			<td><%= c.getGrade() %></td>
+			<td align="center"><%= c.getPid() %></td>
+			<td align="center"><%= c.getGrade() %></td>
 			<td><a href="CategoryAdd.jsp?pid=<%= c.getId() %>">添加子类</a> 
 			 | <a href="CategoryModify.jsp?id=<%= c.getId() %>">编辑该类</a>
 			<% if(c.isLeaf()) { %>

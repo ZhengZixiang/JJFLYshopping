@@ -20,7 +20,14 @@
 		u.setAddr(addr);
 		u.setRdate(new java.util.Date(System.currentTimeMillis()));
 		u.save();
-		out.println("Congratulation! Register Successfully!");
+		%>
+		<script type="text/javascript" src="Script/go.js"></script>
+		<div id="timeleft" align="center">修改成功！3秒后返回首页！</div>
+		<center>若没有跳转，请手动点击<a href='index.jsp'>回到首页</a></center>
+		<script type="text/javascript">
+			setInterval("go('register')", 1000);
+		</script>
+		<%
 		return;
 	}
 %>

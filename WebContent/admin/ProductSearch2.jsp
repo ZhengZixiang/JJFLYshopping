@@ -60,10 +60,12 @@ if(action != null) {
 
 <body>
 	<center style="font-size: 20px">第二代产品搜索引擎</center><br>
-	<center>简单搜索</center>
 	<form name="simple" action="ProductSearch2.jsp" method="get">
 	<input type="hidden" name="action" value="simple"/>
 	<table border="1" align="center">
+		<tr>
+			<th colspan="2">简单搜索</th>
+		</tr>
 		<tr>
 			<td>选择类别</td>
 			<td><select name="categoryid">
@@ -89,11 +91,13 @@ if(action != null) {
 	</table>
 	</form>
 	
-	<br><br>
-	<center>多选搜索</center>
+	<br>
 	<form name="multiple" action="ProductSearch.jsp" method="get">
 	<input type="hidden" name="action" value="multiple"/>
 	<table border="1" align="center">
+		<tr>
+			<th colspan="2">多选搜索</th>
+		</tr>
 		<tr>
 			<td>选择类别</td>
 			<td>
@@ -117,11 +121,11 @@ if(action != null) {
 	</table>
 	</form>
 	
-	<br><br>
-	<center>高级搜索</center>
+	<br>
 	<form name="complex" action="ProductSearch.jsp" method="post" onsubmit="checkdata()">
 	<input type="hidden" name="action" value="complex"/>
 	<table border="1" align="center">
+		<tr><th colspan="2">高级搜索</th></tr>
 		<tr>
 			<td>选择类别</td>
 			<td><select name="categoryid">

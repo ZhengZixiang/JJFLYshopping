@@ -37,15 +37,18 @@
 <title>DeleteUserPage</title>
 </head>
 <body>
-	<% if(pid == 0) { %>
-	<center>添加根类别</center>
-	<% } else { %>
-	<center>添加子类别</center>
-	<% } %>
+
 	<form action="CategoryAdd.jsp" method="post" >
 		<input type="hidden" name="action" value="add" />
 		<input type="hidden" name="pid" value="<%= pid %>">
 		<table align="center" border="1">
+		<tr>
+		<% if(pid == 0) { %>
+		<th colspan="2">添加根类别</th>
+		<% } else { %>
+		<th colspan="2">添加子类别</th>
+		<% } %>
+		</tr>
 		<tr>
 			<td>类别名称：</td>
 			<td><input type="text" name="name" size="30" maxlength="30"></td>
@@ -55,9 +58,9 @@
 			<td><textarea rows="5" cols="80" name="descr"></textarea></td>
 		</tr>
 		<tr>
-			<td colspan = 2>
-				<input type="submit" value="提交"></input>
+			<td colspan="2" align="center">
 				<input type="reset" value="重置"></input>
+				<input type="submit" value="提交"></input>
 			</td>
 		</tr>
 		</table>

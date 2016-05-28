@@ -3,6 +3,8 @@ package me.zzx.shopping.dao;
 import java.util.Date;
 import java.util.List;
 
+import org.jfree.data.general.Dataset;
+
 import me.zzx.shopping.Product;
 
 //面向接口编程，也叫控制反转
@@ -37,5 +39,8 @@ public interface ProductDAO {
 	public int getProducts(List<Product> products, int pageNo, int pageSize);
 
 	public List<Product> getLatestProducts(int count);
+
+
+	public List<Dataset> getDatasets();
 	
 }

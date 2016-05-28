@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.Dataset;
+import org.jfree.data.general.DefaultPieDataset;
+
 import me.zzx.shopping.Category;
 import me.zzx.shopping.Product;
 import me.zzx.shopping.util.DB;
@@ -324,6 +328,31 @@ System.out.println(sql);
 			DB.closeRS(rs);
 		}
 		return products;
+	}
+
+	public List<Dataset> getDatasets() {
+		Connection conn = null;
+		ResultSet rs = null;
+		DefaultCategoryDataset cDataset = new DefaultCategoryDataset();
+		DefaultPieDataset pDataset = new DefaultPieDataset();
+		List<Dataset> datasets = new ArrayList<Dataset>();
+		try {
+			conn = DB.getConn();
+			String sql = "select p.name, sum(pcount) from product p join salesitem si on (p.id = si.productid) group by p.id";
+			rs = DB.executeQuery(conn, sql);
+			while(rs.next()) {
+		        cDataset.addValue(rs.getInt(2), "", rs.getString(1));
+		        pDataset.setValue(rs.getString(1), rs.getInt(2));
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closeRS(rs);
+			DB.closeConn(conn);
+		}
+		datasets.add(cDataset);
+		datasets.add(pDataset);
+		return datasets;
 	}
 	
 }

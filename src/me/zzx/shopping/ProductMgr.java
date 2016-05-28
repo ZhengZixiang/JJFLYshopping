@@ -3,6 +3,8 @@ package me.zzx.shopping;
 import java.util.Date;
 import java.util.List;
 
+import org.jfree.data.general.Dataset;
+
 import me.zzx.shopping.dao.ProductDAO;
 import me.zzx.shopping.dao.ProductMysqlDAO;
 
@@ -93,5 +95,10 @@ public class ProductMgr {
 	
 	public List<Product> getLatestProducts(int count) {
 		return dao.getLatestProducts(count);
+	}
+	
+
+	public List<Dataset> getDatasets() {
+		return dao.getDatasets();
 	}
 }

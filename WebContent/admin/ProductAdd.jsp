@@ -64,10 +64,12 @@
 
 </head>
 <body>
-	<center>产品添加</center>
 	<form action="ProductAdd.jsp" method="post" name="form" onsubmit="return checkcategory()">
 		<input type="hidden" name="action" value="add" />
 		<table align="center" border="1">
+		<tr>
+			<th colspan="2">产品添加</th>
+		</tr>
 		<tr>
 			<td>产品名称：</td>
 			<td><input type="text" name="name" size="30" maxlength="30"></td>
@@ -120,9 +122,9 @@
 			</select></td>
 		</tr>
 		<tr>
-			<td colspan = 2>
-				<input type="submit" value="提交"></input>
+			<td colspan="2" align="center">
 				<input type="reset" value="重置"></input>
+				<input type="submit" value="提交"></input>
 			</td>
 		</tr>
 		</table>

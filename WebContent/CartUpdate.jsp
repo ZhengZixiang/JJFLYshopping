@@ -15,6 +15,7 @@ for(Iterator<CartItem> it = items.iterator(); it.hasNext(); ) {
 		try {
 			ci.setCount(Integer.parseInt(strCount));
 		} catch(NumberFormatException e) {
+			response.sendRedirect("FailUpdating.jsp");
 			return;
 		}
 	}
@@ -27,26 +28,26 @@ for(Iterator<CartItem> it = items.iterator(); it.hasNext(); ) {
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>购物车刷新CartUpdate</title>
 
-<script type="text/javascript">
-	var leftTime = 3000;
-	function go() {
-		leftTime -= 1000;
-		document.getElementById("timeleft").innerText = "修改成功！" + leftTime/1000 + "秒后返回购物车！";
-		if(leftTime <= 0) {
-			document.location.href="Cart.jsp";
-		}
+<script type="text/javascript" src="Script/go.js">
+/* var leftTime = 3000;
+function go() {
+	leftTime -= 1000;
+	document.getElementById("timeleft").innerText = "修改成功！" + leftTime/1000 + "秒后返回购物车！";
+	if(leftTime <= 0) {
+		document.location.href="Cart.jsp";
 	}
+} */
 </script>
 
 </head>
 <body>
 	<div id="timeleft" align="center">修改成功！3秒后返回购物车！</div>
-	<center>若没有成功，请手动点击<a href='Cart.jsp'>回到购物车</a></center>
+	<center>若没有跳转，请手动点击<a href='Cart.jsp'>回到购物车</a></center>
 	<script type="text/javascript">
 		//3秒后调用一次go
 		//setTimeout(go, 3000);
 		//每隔1秒调用一次go
-		setInterval(go, 1000);
+		setInterval("go('update')", 1000);
 	</script>
 	
 </body>
