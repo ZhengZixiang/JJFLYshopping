@@ -128,6 +128,11 @@ public class CategoryDAO {
 		return c;
 	}
 
+	/**
+	 * 删除一个类别，同时利用递归删除其下的子类别。
+	 * @param id 类别ID
+	 * @param pid 父类别ID
+	 */
 	@SuppressWarnings("resource")
 	public static void delete(int id, int pid) {
 		Connection conn = null;
@@ -147,6 +152,8 @@ public class CategoryDAO {
 			if(rs.getInt(1) <= 0) { 
 				DB.executeUpdate(conn, "update category set isleaf = 0 where id = " + pid);
 			}
+			ProductMgr.getInstance().deleteProductsByCategoryId(id);
+			conn.commit();
 			conn.setAutoCommit(true);
 		} catch (SQLException e) {
 			try {

@@ -26,7 +26,7 @@
 			child.setDescr(descr);
 			parent.addChild(child);
 		}
-		out.println("Congratulation! Category Add Successfully!");
+		out.println("<center>Congratulation! Category Add Successfully!</center>");
 		return;
 	}
 %>
@@ -46,7 +46,7 @@
 		<% if(pid == 0) { %>
 		<th colspan="2">添加根类别</th>
 		<% } else { %>
-		<th colspan="2">添加子类别</th>
+		<th colspan="2">在【<%= CategoryDAO.loadById(pid).getName() %>】下添加子类别</th>
 		<% } %>
 		</tr>
 		<tr>

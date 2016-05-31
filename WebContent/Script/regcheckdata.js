@@ -1,5 +1,8 @@
 var tipStyle = "<font color='red' size='1'/>";
 
+var request;
+var existent;
+
 function checkData() {
 	
 	if(!checkUsername()) {
@@ -92,11 +95,49 @@ function checkUsername() {
 		document.getElementById("unErr").innerHTML = tipStyle + "\*用户名不正确！用户名由a-z、0-9、.、-或下划线组成，以数字或字母开头结尾，不区分大小写！";
 		form.username.focus();
 		return false;
+	}	
+	if(validate(ssn)) {
+		return false;
 	}
 	
 	document.getElementById("unErr").innerHTML = "";
 	return true;
 }
+
+function validate(ssn) {
+	var url = "Validate.jsp?username=" + escape(ssn);
+	if(window.XMLHttpRequest) {
+		request = new XMLHttpRequest();
+	} else if (window.ActiveXObject) {
+		request = new ActiveXObject("Microsoft XMLHTTP");
+	}
+	request.open("GET", url, true);
+	request.onreadystatechange = callback;
+	request.send(null);	
+	return existent;
+}
+
+function callback() {
+	if(request.readyState == 4) {
+		if(request.status == 200) {
+			var msg = request.responseXML.getElementsByTagName("msg")[0];
+			setMsg(msg.childNodes[0].nodeValue);
+		} else {
+			alert("服务器出现了点小问题，正在玩命修复中！");
+		}
+	}
+}
+
+function setMsg(msg) {
+	if(msg == "notexistent") {
+		document.getElementById("unErr").innerHTML = tipStyle + "";
+		existent = false;
+	} else if(msg == "existent") {
+		document.getElementById("unErr").innerHTML = tipStyle + "*用户名已存在！请重命名！";
+		form.username.focus();
+		existent =  true;
+	}
+} 
 
 function checkPhone() {
 	phoneNum = form.phone.value;

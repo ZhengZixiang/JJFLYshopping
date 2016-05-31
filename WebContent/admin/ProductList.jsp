@@ -64,7 +64,7 @@ if(pageNo > pageCnt) {
 			<td><%= p.getPdate() %></td> 
 			<td><%= p.getCategory().getName() %></td> 
 			<td>
-				<a href="ProductDelete.jsp?id=<%= p.getId() %>" target="detail">产品删除</a>
+				<a href="ProductDelete.jsp?id=<%= p.getId() %>" target="detail" onclick="return confirm('//TODO')">产品删除</a>
 				 | <a href="ProductModify.jsp?id=<%= p.getId() %>">产品修改</a>
 				 | <a href="ProductImageUpload.jsp?id=<%= p.getId() %>" target="detail">上传图片</a>	 
 			</td>

@@ -53,4 +53,25 @@ public class UserManager {
 		}
 	} 
 	
+	public static boolean usernameExists(String username) {
+		Connection conn = null;
+		ResultSet rs = null;
+		boolean existent = false;
+		try {
+			conn = DB.getConn();
+			String sql = "select * from ruser where username = '" + username + "'";
+			rs = DB.executeQuery(conn, sql);
+			if(!rs.next()) {
+				existent = false;
+			} else {
+				existent = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.closeRS(rs);
+			DB.closeConn(conn);
+		}
+		return existent;
+	}
 }

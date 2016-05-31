@@ -78,7 +78,7 @@ public class ProductMgr {
 	}
 	
 	public boolean deleteProductsByCategoryId(int categoryId) {
-		return false;
+		return dao.deleteProductsByCategoryId(categoryId);
 	}
 	
 	public boolean updateProduct(Product p) {

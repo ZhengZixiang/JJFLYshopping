@@ -205,8 +205,24 @@ System.out.println(sql);
 		return false;
 	}
 	
+	/**
+	 * 该方法实现了通过类别ID删除其下产品，应用于类DAO里的删除类别操作
+	 */
 	public boolean deleteProductsByCategoryId(int categoryId) {
-		return false;
+		Connection conn = null;
+		try {
+			conn = DB.getConn();
+			conn.setAutoCommit(false);
+			String sql = "delete from product where categoryid = " + categoryId;
+			DB.executeUpdate(conn, sql);
+			conn.commit();
+			conn.setAutoCommit(true);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DB.closeConn(conn);
+		}
+		return true;
 	}
 	
 	public boolean updateProduct(Product p) {
