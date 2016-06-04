@@ -4,8 +4,39 @@
 <%@ page import="java.util.*" %>
 
 <jsp:useBean id="cart" class="me.zzx.shopping.Cart" scope="session"></jsp:useBean>
+<%!
+public String getSecondCategories(List<Category> categories, Category topCategory) {
+	StringBuffer buf = new StringBuffer();
+	int count = 1;
+	for(int i = 0; i < categories.size(); i++) {
+		Category c = categories.get(i);
+		if(c.getPid() == topCategory.getId()){
+			buf.append("document.cform.category2.options[" + count +  "].text = '" + c.getName()+ "';\n" );
+			buf.append("document.cform.category2.options[" + count +  "].value = '" + c.getId()+ "';\n" );
+			count++;
+		}
+	}
+	buf.insert(0, "document.cform.category2.options[0].text = '请选择二级目录';\n");
+	buf.insert(0, "document.cform.category2.options[0].value = '-1';\n");
+	buf.insert(0, "document.cform.category2.selectedIndex = 0;\n");
+	buf.insert(0, "document.cform.category2.options.length = " + count + ";\n");
+	buf.insert(0, "if(document.cform.category1.options[document.cform.category1.selectedIndex].value == " + topCategory.getId() + ") {\n");
+	buf.append("}\n");
+	return buf.toString();
+}
+%>
 <%
+//String str = "";
 List<Product> latestProducts = ProductMgr.getInstance().getLatestProducts(8);
+List<Category> categories = Category.getCategories();
+List<Category> topCategories = new ArrayList<Category>();
+for(Iterator<Category> it = categories.iterator(); it.hasNext(); ) {
+	Category c = it.next();
+	if(c.getGrade() == 1) {
+		topCategories.add(c);
+		//str += getSecondCategories(categories, c);
+	}
+}
 User user = (User) session.getAttribute("user");
 %>
 
@@ -413,125 +444,35 @@ if(document.URL.indexOf('www.baidu.com') >= 0){
                         </div>
                     </div>
                 </li>
-                                <li class="nav-item">
-                    <a class="link" href="javascript: void(0);" data-stat-id="6f4eff610f87f058" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-6f4eff610f87f058&#39;, &#39;javascript:void(0);&#39;, &#39;pcpid&#39;]);"><span class="text">盒子</span><span class="arrow"></span></a>
-                    <div class="item-children">
-                        <div class="container">
-                            <ul class="children-list clearfix">
-                                                            <li class="first">
-                                    <div class="figure figure-thumb">
-                                        <a href="http://www.mi.com/hezimini/" data-stat-id="10d5a2f4a9bccc86" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-10d5a2f4a9bccc86&#39;, &#39;//www.mi.com/hezimini/&#39;, &#39;pcpid&#39;]);"><img src="./images/index/placeholder-220!110x110.png" data-src="//c1.mifile.cn/f/i/15/goods/nav/hezimini.png" srcset="//c1.mifile.cn/f/i/15/goods/nav/hezimini.png 2x" alt="小米盒子mini版" width="160" height="110"></a>
-                                    </div>
-                                    <div class="title"><a href="http://www.mi.com/hezimini/" data-stat-id="9896a6b18574443d" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-9896a6b18574443d&#39;, &#39;//www.mi.com/hezimini/&#39;, &#39;pcpid&#39;]);">小米盒子mini版</a></div>
-                                    <p class="price">199元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="http://www.mi.com/hezi3/" data-stat-id="4a6940612a38a852" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-4a6940612a38a852&#39;, &#39;//www.mi.com/hezi3/&#39;, &#39;pcpid&#39;]);"><img src="./images/index/placeholder-220!110x110.png" data-src="//c1.mifile.cn/f/i/15/goods/nav/hezi3.png" srcset="//c1.mifile.cn/f/i/15/goods/nav/hezi3.png 2x" alt="小米盒子3" width="160" height="110"></a>
-                                    </div>
-                                    <div class="title"><a href="http://www.mi.com/hezi3/" data-stat-id="056fb7e4ea8dd552" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-056fb7e4ea8dd552&#39;, &#39;//www.mi.com/hezi3/&#39;, &#39;pcpid&#39;]);">小米盒子3</a></div>
-                                    <p class="price">299元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="http://www.mi.com/hezi3s/" data-stat-id="32a01e59d20f9fa7" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-32a01e59d20f9fa7&#39;, &#39;//www.mi.com/hezi3s/&#39;, &#39;pcpid&#39;]);"><img src="./images/index/placeholder-220!110x110.png" data-src="//c1.mifile.cn/f/i/15/goods/nav/hezi3s!160x110.jpg" srcset="//c1.mifile.cn/f/i/15/goods/nav/hezi3s!320x220.jpg 2x" alt="小米盒子3 增强版" width="160" height="110"></a>
-                                    </div>
-                                    <div class="title"><a href="http://www.mi.com/hezi3s/" data-stat-id="9c415465c2aba107" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-9c415465c2aba107&#39;, &#39;//www.mi.com/hezi3s/&#39;, &#39;pcpid&#39;]);">小米盒子3 增强版</a></div>
-                                    <p class="price">399元</p>                                                                    </li>
-                                                        </ul>
-                        </div>
-                    </div>
+                <li>
+                	<form action="Search.jsp" method="get" name="cform" onchange="changeCategory()">
+					<table>
+						<tr>
+							<td><select name="category1" >
+								<option value="0" selected>查询所有一级类别</option>
+								<%
+								for(Iterator<Category> it = topCategories.iterator(); it.hasNext(); ) {
+									Category c = it.next();
+								%>
+								<option value="<%= c.getId() %>"><%= c.getName() %></option>
+								<%
+									getSecondCategories(categories, c);
+								}
+								%>
+							</select></td>
+							
+							<td>>><select name="category2">
+								<option value="0" selected>查询所有二级类别</option>
+							</select></td>
+						</tr>
+					</table>
+					</form>
                 </li>
-                                <li class="nav-item">
-                    <a class="link" href="javascript: void(0);" data-stat-id="b4d066d2f9a3bd16" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-b4d066d2f9a3bd16&#39;, &#39;javascript:void(0);&#39;, &#39;pcpid&#39;]);"><span class="text">路由器</span><span class="arrow"></span></a>
-                    <div class="item-children">
-                        <div class="container">
-                            <ul class="children-list clearfix">
-                                                            <li class="first">
-                                    <div class="figure figure-thumb">
-                                        <a href="http://www.mi.com/miwifi/" data-stat-id="7886a57706d7af86" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-7886a57706d7af86&#39;, &#39;//www.mi.com/miwifi/&#39;, &#39;pcpid&#39;]);"><img src="./images/index/placeholder-220!110x110.png" data-src="//c1.mifile.cn/f/i/15/goods/nav/miwifi!160x110.jpg" srcset="//c1.mifile.cn/f/i/15/goods/nav/miwifi!320x220.jpg 2x" alt="全新小米路由器" width="160" height="110"></a>
-                                    </div>
-                                    <div class="title"><a href="http://www.mi.com/miwifi/" data-stat-id="c4863641a1ba2ed7" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-c4863641a1ba2ed7&#39;, &#39;//www.mi.com/miwifi/&#39;, &#39;pcpid&#39;]);">全新小米路由器</a></div>
-                                    <p class="price">699元起</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="http://www.mi.com/miwifi3/" data-stat-id="8b371a9da0ece570" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-8b371a9da0ece570&#39;, &#39;//www.mi.com/miwifi3/&#39;, &#39;pcpid&#39;]);"><img src="./images/index/placeholder-220!110x110.png" data-src="//c1.mifile.cn/f/i/15/goods/nav/miwifi-3!160x110.jpg" srcset="//c1.mifile.cn/f/i/15/goods/nav/miwifi-3!320x220.jpg 2x" alt="小米路由器 3" width="160" height="110"></a>
-                                    </div>
-                                    <div class="title"><a href="http://www.mi.com/miwifi3/" data-stat-id="5d3ef0735d93f5f5" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-5d3ef0735d93f5f5&#39;, &#39;//www.mi.com/miwifi3/&#39;, &#39;pcpid&#39;]);">小米路由器 3</a></div>
-                                    <p class="price">149元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="http://www.mi.com/miwifimini/" data-stat-id="ef91a62772bfd956" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-ef91a62772bfd956&#39;, &#39;//www.mi.com/miwifimini/&#39;, &#39;pcpid&#39;]);"><img src="./images/index/placeholder-220!110x110.png" data-src="//c1.mifile.cn/f/i/15/goods/nav/miwifimini!160x110.jpg" srcset="//c1.mifile.cn/f/i/15/goods/nav/miwifimini!320x220.jpg 2x" alt="小米路由器 mini" width="160" height="110"></a>
-                                    </div>
-                                    <div class="title"><a href="http://www.mi.com/miwifimini/" data-stat-id="408004fc55332240" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-408004fc55332240&#39;, &#39;//www.mi.com/miwifimini/&#39;, &#39;pcpid&#39;]);">小米路由器 mini</a></div>
-                                    <p class="price">129元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="http://www.mi.com/miwifilite/" data-stat-id="26cd4b26bc8e41fc" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-26cd4b26bc8e41fc&#39;, &#39;//www.mi.com/miwifilite/&#39;, &#39;pcpid&#39;]);"><img src="./images/index/placeholder-220!110x110.png" data-src="//c1.mifile.cn/f/i/15/goods/nav/miwifilite!160x110.jpg" srcset="//c1.mifile.cn/f/i/15/goods/nav/miwifilite!320x220.jpg 2x" alt="小米路由器 青春版" width="160" height="110"></a>
-                                    </div>
-                                    <div class="title"><a href="http://www.mi.com/miwifilite/" data-stat-id="0a381bc01b4ba80f" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-0a381bc01b4ba80f&#39;, &#39;//www.mi.com/miwifilite/&#39;, &#39;pcpid&#39;]);">小米路由器 青春版</a></div>
-                                    <p class="price">79元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="http://item.mi.com/1153200003.html" data-stat-id="1191c5e28f8ef915" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-1191c5e28f8ef915&#39;, &#39;//item.mi.com/1153200003.html&#39;, &#39;pcpid&#39;]);"><img src="./images/index/placeholder-220!110x110.png" data-src="//c1.mifile.cn/f/i/15/goods/nav/wifiExtension!160x110.jpg" srcset="//c1.mifile.cn/f/i/15/goods/nav/wifiExtension!320x220.jpg 2x" alt="小米WiFi放大器" width="160" height="110"></a>
-                                    </div>
-                                    <div class="title"><a href="http://item.mi.com/1153200003.html" data-stat-id="cf1bb22e5a66fd84" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-cf1bb22e5a66fd84&#39;, &#39;//item.mi.com/1153200003.html&#39;, &#39;pcpid&#39;]);">小米WiFi放大器</a></div>
-                                    <p class="price">39元</p>                                                                    </li>
-                                                        </ul>
-                        </div>
-                    </div>
-                </li>
-                                <li class="nav-item">
-                    <a class="link" href="javascript:void(0);" data-stat-id="9fbb41fbadfac4d7" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-9fbb41fbadfac4d7&#39;, &#39;javascript:void(0);&#39;, &#39;pcpid&#39;]);"><span class="text">智能硬件</span><span class="arrow"></span></a>
-                    <div class="item-children">
-                        <div class="container">
-                            <ul class="children-list clearfix">
-                                                            <li class="first">
-                                    <div class="figure figure-thumb">
-                                        <a href="http://www.mi.com/dianfanbao/" data-stat-id="952a5d385c927012" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-952a5d385c927012&#39;, &#39;//www.mi.com/dianfanbao/&#39;, &#39;pcpid&#39;]);"><img src="./images/index/placeholder-220!110x110.png" data-src="//c1.mifile.cn/f/i/15/goods/nav/dianfanbao!160x110.jpg" srcset="//c1.mifile.cn/f/i/15/goods/nav/dianfanbao!320x220.jpg 2x" alt="米家压力IH电饭煲" width="160" height="110"></a>
-                                    </div>
-                                    <div class="title"><a href="http://www.mi.com/dianfanbao/" data-stat-id="08941525cd0818fb" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-08941525cd0818fb&#39;, &#39;//www.mi.com/dianfanbao/&#39;, &#39;pcpid&#39;]);">米家压力IH电饭煲</a></div>
-                                    <p class="price">999元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="http://www.mi.com/scooter/" data-stat-id="c174122c86094547" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-c174122c86094547&#39;, &#39;//www.mi.com/scooter/&#39;, &#39;pcpid&#39;]);"><img src="./images/index/placeholder-220!110x110.png" data-src="//c1.mifile.cn/f/i/15/goods/nav/scooter!160x110.jpg" srcset="//c1.mifile.cn/f/i/15/goods/nav/scooter!320x220.jpg 2x" alt="九号平衡车" width="160" height="110"></a>
-                                    </div>
-                                    <div class="title"><a href="http://www.mi.com/scooter/" data-stat-id="920245034ae9442d" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-920245034ae9442d&#39;, &#39;//www.mi.com/scooter/&#39;, &#39;pcpid&#39;]);">九号平衡车</a></div>
-                                    <p class="price">1999元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="http://www.mi.com/air2/" data-stat-id="c9c63a212deac94b" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-c9c63a212deac94b&#39;, &#39;//www.mi.com/air2/&#39;, &#39;pcpid&#39;]);"><img src="./images/index/placeholder-220!110x110.png" data-src="//c1.mifile.cn/f/i/16/goods/nav/air2!160x110.jpg" srcset="//c1.mifile.cn/f/i/16/goods/nav/air2!320x220.jpg 2x" alt="小米空气净化器 2" width="160" height="110"></a>
-                                    </div>
-                                    <div class="title"><a href="http://www.mi.com/air2/" data-stat-id="9e4e9f43d9006273" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-9e4e9f43d9006273&#39;, &#39;//www.mi.com/air2/&#39;, &#39;pcpid&#39;]);">小米空气净化器 2</a></div>
-                                    <p class="price">699元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="http://www.mi.com/scale/" data-stat-id="61ae61714b46eb7b" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-61ae61714b46eb7b&#39;, &#39;//www.mi.com/scale/&#39;, &#39;pcpid&#39;]);"><img src="./images/index/placeholder-220!110x110.png" data-src="//c1.mifile.cn/f/i/15/goods/nav/scale!160x110.jpg" srcset="//c1.mifile.cn/f/i/15/goods/nav/scale!320x220.jpg 2x" alt="体重秤" width="160" height="110"></a>
-                                    </div>
-                                    <div class="title"><a href="http://www.mi.com/scale/" data-stat-id="9a335ca0a49e446d" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-9a335ca0a49e446d&#39;, &#39;//www.mi.com/scale/&#39;, &#39;pcpid&#39;]);">体重秤</a></div>
-                                    <p class="price">99元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="http://www.mi.com/xiaoyi/" data-stat-id="6aaa435bbfc809d5" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-6aaa435bbfc809d5&#39;, &#39;//www.mi.com/xiaoyi/&#39;, &#39;pcpid&#39;]);"><img src="./images/index/placeholder-220!110x110.png" data-src="//c1.mifile.cn/f/i/15/goods/nav/xiaoyi!160x110.jpg" srcset="//c1.mifile.cn/f/i/15/goods/nav/xiaoyi!320x220.jpg 2x" alt="摄像机" width="160" height="110"></a>
-                                    </div>
-                                    <div class="title"><a href="http://www.mi.com/xiaoyi/" data-stat-id="1bd024fd23e94647" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-1bd024fd23e94647&#39;, &#39;//www.mi.com/xiaoyi/&#39;, &#39;pcpid&#39;]);">摄像机</a></div>
-                                    <p class="price">149元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="http://www.mi.com/smart/" data-stat-id="03c1c541d27a9a24" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-03c1c541d27a9a24&#39;, &#39;//www.mi.com/smart/&#39;, &#39;pcpid&#39;]);"><img src="./images/index/placeholder-220!110x110.png" data-src="//c1.mifile.cn/f/i/15/goods/nav/smart!160x110.jpg" srcset="//c1.mifile.cn/f/i/15/goods/nav/smart!320x220.jpg 2x" alt="查看全部&lt;br/&gt;智能硬件" width="160" height="110"></a>
-                                    </div>
-                                    <div class="title"><a href="http://www.mi.com/smart/" data-stat-id="9c5992491965e45b" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-9c5992491965e45b&#39;, &#39;//www.mi.com/smart/&#39;, &#39;pcpid&#39;]);">查看全部<br>智能硬件</a></div>
-                                                                                                        </li>
-                                                        </ul>
-                        </div>
-                    </div>
-                </li>
-                                <li class="nav-item">
-                    <a class="link" href="http://www.mi.com/service" target="_blank" data-stat-id="d374753addaf4cbe" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-d374753addaf4cbe&#39;, &#39;//www.mi.com/service&#39;, &#39;pcpid&#39;]);"><span class="text">服务</span></a>
-                </li>
-                                <li class="nav-item">
-                    <a class="link" href="http://www.xiaomi.cn/" target="_blank" data-stat-id="359ee71e873842fd" onclick="_msq.push([&#39;trackEvent&#39;, &#39;79fe2eae924d2a2e-359ee71e873842fd&#39;, &#39;http://www.xiaomi.cn&#39;, &#39;pcpid&#39;]);"><span class="text">社区</span></a>
-                </li>
-                            </ul>
+			</ul>
         </div>
+
+        
+        
         <div class="header-search">
             <form id="J_searchForm" class="search-form clearfix" action="http://search.mi.com/search" method="get">
                 <label for="search" class="hide">站内搜索</label>
@@ -976,6 +917,7 @@ var bricksData = {"recommend":[],"comment":[{"area_id":"38","adv_id":"11731","sp
 </script>
 <script src="./images/index/home.min.js"></script>
 <script src="./images/index/xmsg_ti.js"></script>
+<script src="./Script/util.js"></script>
 <script>
 var _msq = _msq || [];
 _msq.push(['setDomainId', 100]);
@@ -989,6 +931,4 @@ _msq.push(['trackPageView']);
     s.parentNode.insertBefore(ms, s);
 })();
 </script>
-
-
 </body></html>

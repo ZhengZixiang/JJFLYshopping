@@ -202,7 +202,25 @@ System.out.println(sql);
 	}
 	
 	public boolean deleteProductsById(int[] idArray) {
-		return false;
+		Connection conn = null;
+		try {
+			conn = DB.getConn();
+			conn.setAutoCommit(false);
+			String sql = "delete from product where ";
+			for(int i = 0; i < idArray.length; ++i) {
+				sql += "id = " + idArray[i] + " or ";
+			}
+			sql += "1 = 0";
+			DB.executeUpdate(conn,sql);
+			conn.commit();
+			conn.setAutoCommit(true);
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DB.closeConn(conn);
+		}
+		return true;
 	}
 	
 	/**

@@ -82,6 +82,12 @@ public class Category {
 		return list;
 	}
 	
+	public List<Category> getChildren() {
+		List<Category> children = new ArrayList<Category>();
+		CategoryDAO.getCategories(children, this.id);
+		return children;
+	}
+	
 	public static Category loadById(int id) {
 		return CategoryDAO.loadById(id);
 	}

@@ -73,8 +73,13 @@ public class ProductMgr {
 		return null;
 	}
 	
+	/**
+	 * 通过商品ID删除该商品
+	 * @param idArray 商品ID数组
+	 * @return 是否删除成功
+	 */
 	public boolean deleteProductsById(int[] idArray) {
-		return false;
+		return dao.deleteProductsById(idArray);
 	}
 	
 	public boolean deleteProductsByCategoryId(int categoryId) {

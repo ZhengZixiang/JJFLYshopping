@@ -35,7 +35,7 @@
 		p.setCategoryId(categoryId);
 		ProductMgr.getInstance().addProduct(p);
 		
-		out.println("Congratulation! Product Add Successfully!");
+		out.println("<center>Congratulation! Product Add Successfully!</center>");
 		return;
 	}
 %>
@@ -49,17 +49,14 @@
 
 <script type="text/javascript">
 	var arrLeaf = new Array();
-	<!--
 	function checkcategory() {
 		if(arrLeaf[document.form.categoryid.selectedIndex] == "leaf") {
 			return true;	
 		} else {
 			alert("不能在子类下添加新产品！");
-			document.form.category.focus();
 			return false;
 		}
 	}
-	-->
 </script>
 
 </head>
